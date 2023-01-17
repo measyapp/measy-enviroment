@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - ${PORT_BACK}:${PORT_BACK}
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - backend/.env
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - ${VITE_PORT}:${VITE_PORT}
+    volumes:
+      - ./frontend:/usr/src/app-web
+      - /usr/src/app-web/node_modules
+
+    env_file:
+      - .env
+  db:
+    image: mysql:8
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE:${MYSQL_DATABASE}
+    volumes:
+      - mysql:/var/lib/mysql
+      - mysql_config:/etc/mysql
+    env_file:
+      - ./.env
+      
+volumes:
+  mysql:
+  mysql_config:

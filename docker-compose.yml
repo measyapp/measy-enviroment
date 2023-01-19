@@ -9,7 +9,7 @@ services:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
     env_file:
-      - backend/.env
+      - ./.env
   frontend:
     build:
       context: ./frontend
@@ -20,7 +20,7 @@ services:
       - /usr/src/app-web/node_modules
 
     env_file:
-      - .env
+      - ./.env
   db:
     image: mysql:8
     ports:
